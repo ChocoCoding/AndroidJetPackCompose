@@ -56,15 +56,6 @@ fun _13Screen(navController: NavController){
 @Composable
 fun _13BodyContent(navController: NavController){
     val viewModel : Calculadora = viewModel()
-    var operando1: String by remember { mutableStateOf("") }
-    var operando2: String by remember { mutableStateOf("") }
-
-    viewModel.operando1.value = operando1
-    viewModel.operando2.value = operando2
-
-    val res: Double by viewModel.res
-
-    val colorRes: Color by viewModel.colorRes
 
     Column(
         modifier = Modifier
@@ -75,16 +66,16 @@ fun _13BodyContent(navController: NavController){
         Spacer(modifier = Modifier
             .padding(40.dp))
         TextField(
-            value = operando1,
-            onValueChange = { operando1 = it },
+            value = viewModel.operando1.value,
+            onValueChange = { viewModel.operando1.value = it },
             label = { androidx.compose.material3.Text("Operando1") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Spacer(modifier = Modifier
             .padding(10.dp))
         TextField(
-            value = operando2,
-            onValueChange = { operando2 = it },
+            value =  viewModel.operando2.value,
+            onValueChange = {  viewModel.operando2.value = it },
             label = { androidx.compose.material3.Text("Operando2") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
@@ -97,9 +88,9 @@ fun _13BodyContent(navController: NavController){
         Spacer(modifier = Modifier.padding(10.dp))
 
         Text(
-            text = "Resultado = $res",
+            text = "Resultado = ${viewModel.res.value}",
             fontSize = 25.sp,
-            color = colorRes
+            color = viewModel.colorRes.value
         )
 
         Spacer(modifier = Modifier.padding(10.dp))
