@@ -93,11 +93,6 @@ fun BodyContent(navController: NavController){
             Text("Calculadora Estado")
         }
         Button(onClick = {
-            navController.navigate(route = AppScreens._12Screen.route)
-        }) {
-            Text("Contador")
-        }
-        Button(onClick = {
             navController.navigate(route = AppScreens._13Screen.route)
         }) {
             Text("Calculadora VM")

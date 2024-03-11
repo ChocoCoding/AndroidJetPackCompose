@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.jetpackcompose.clases.CalculadoraSinEstado
 import com.example.jetpackcompose.navigation.AppScreens
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -47,111 +48,71 @@ fun _11Screen(navController: NavController){
             Text(text = "Calculadora State Hoisting")
         }
     }){
-        _11BodyContent(navController)
+        CalculadoraStateHoisting()
     }
 }
 
-@Composable
-fun _11BodyContent(navController: NavController){
-    var operando1 by remember{ mutableStateOf("") }
-    var operando2 by remember{ mutableStateOf("") }
-    var suma by remember { mutableStateOf(0.0) }
-    var colorTexto by remember {mutableStateOf(Color.Black)}
-    val onCalcular={
-        suma=operando1.toDouble()+operando2.toDouble()
-        colorTexto=when {
-            suma<25 -> Color.Cyan
-            suma>25 -> Color.Blue
-            suma==25.0-> Color.Red
-            else -> Color.Black
-        }
-    }
 
-    Column(
+
+@Composable
+fun _11BodyContent (
+    operando1: String, operando2: String, onCalcular: ()->Unit, color: Color, suma: Double, onValueChange1: (String) -> Unit,
+    onValueChange2: (String) -> Unit){
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier
-            .padding(40.dp))
+            .fillMaxSize()
+            .padding(top = 100.dp)
+    ){
+        Spacer(modifier = Modifier.padding(15.dp))
+
         TextField(
             value = operando1,
-            onValueChange = { operando1 = it },
-            label = { androidx.compose.material3.Text("Operando1") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-        Spacer(modifier = Modifier
-            .padding(10.dp))
+            onValueChange =  onValueChange1 ,
+            label = { Text("Operando 1") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+        Spacer(modifier = Modifier.padding(15.dp))
         TextField(
             value = operando2,
-            onValueChange = { operando2 = it },
-            label = { androidx.compose.material3.Text("Operando2") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-        Spacer(modifier = Modifier
-            .padding(10.dp))
-        androidx.compose.material3.Text(text = " Suma = $suma", fontSize = 25.sp, color = colorTexto)
-        Spacer(modifier = Modifier.padding(10.dp))
-
-        Spacer(modifier = Modifier.padding(10.dp))
-        androidx.compose.material3.Button(onClick = onCalcular) {
-            androidx.compose.material3.Text(text = "Calcular")
+            onValueChange =  onValueChange2 ,
+            label = { Text("Operando 2") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+        )
+        Spacer(modifier = Modifier.padding(15.dp))
+        Text(text = "Suma=$suma",
+            color = color,
+            fontSize = 22.sp)
+        Spacer(modifier = Modifier.padding(15.dp))
+        Button(onClick =  onCalcular ) {
+            Text(text = "Calcular")
         }
     }
 }
 
-@Composable
-fun LogicaCalculadora(){
 
 
-}
 
 @Composable
-@Preview(showSystemUi = true)
-fun PreviewCalculadora(){
-    var operando1 by remember{ mutableStateOf("") }
-    var operando2 by remember{ mutableStateOf("") }
+fun CalculadoraStateHoisting(){
+    var operando1 by remember { mutableStateOf("") }
+    var operando2 by remember { mutableStateOf("") }
+    var color by remember { mutableStateOf(Color.Black) }
     var suma by remember { mutableStateOf(0.0) }
-    var colorTexto by remember {mutableStateOf(Color.Black)}
-    var colorM by remember {mutableStateOf(Color.Black)}
-    val onCalcular={
-        colorTexto=when {
-            suma<25 -> Color.Cyan
-            suma>25 -> Color.Blue
-            suma==25.0-> Color.Red
-            else -> Color.Black
-        }
+    val onCalcular = {
+        suma=operando1.toDouble()+operando2.toDouble()
+        if(suma<25) color = Color.Cyan else if (suma>25)
+            color = Color.Blue else color = Color.Red
     }
 
-Column(
-    modifier = Modifier
-        .fillMaxSize(),
-    verticalArrangement = Arrangement.Top,
-    horizontalAlignment = Alignment.CenterHorizontally
-) {
-    Spacer(modifier = Modifier
-        .padding(40.dp))
-    TextField(
-        value = operando1,
-        onValueChange = { operando1 = it },
-        label = { androidx.compose.material3.Text("Operando1") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-    Spacer(modifier = Modifier
-        .padding(10.dp))
-    TextField(
-        value = operando2,
-        onValueChange = { operando2 = it },
-        label = { androidx.compose.material3.Text("Operando2") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-    Spacer(modifier = Modifier
-        .padding(10.dp))
-    androidx.compose.material3.Text(text = " Suma = $suma", fontSize = 25.sp, color = colorTexto)
-    Spacer(modifier = Modifier.padding(10.dp))
-
-    Spacer(modifier = Modifier.padding(10.dp))
-    androidx.compose.material3.Button(onClick = onCalcular) {
-        androidx.compose.material3.Text(text = "Calcular")
-    }
-}
+    _11BodyContent(
+        operando1 = operando1,
+        operando2 = operando2,
+        onCalcular = onCalcular,
+        color = color,
+        suma = suma,
+        onValueChange1 ={ operando1 = it },
+        onValueChange2 = { operando2 = it })
 }
 
 

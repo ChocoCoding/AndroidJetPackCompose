@@ -8,7 +8,6 @@ import com.example.jetpackcompose.screens.FirstScreen
 import com.example.jetpackcompose.screens.SecondScreen
 import com.example.jetpackcompose.screens._10Screen
 import com.example.jetpackcompose.screens._11Screen
-import com.example.jetpackcompose.screens._12Screen
 import com.example.jetpackcompose.screens._13Screen
 import com.example.jetpackcompose.screens._3Screen
 import com.example.jetpackcompose.screens._4Screen
@@ -55,10 +54,7 @@ fun AppNavigation(){
         composable(route = AppScreens._11Screen.route){
             _11Screen(navController)
         }
-        composable(route = AppScreens._11Screen.route){
-            _12Screen(navController)
-        }
-        composable(route = AppScreens._11Screen.route){
+        composable(route = AppScreens._13Screen.route){
             _13Screen(navController)
         }
     }

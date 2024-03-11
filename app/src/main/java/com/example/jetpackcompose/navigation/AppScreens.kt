@@ -12,8 +12,5 @@ sealed class AppScreens(val route : String){
     object _9Screen: AppScreens("_9_screen")
     object _10Screen: AppScreens("_10_screen")
     object _11Screen: AppScreens("_11_screen")
-    object _12Screen: AppScreens("_11_screen")
-    object _13Screen: AppScreens("_11_screen")
-
-
+    object _13Screen: AppScreens("_13_screen")
 }
